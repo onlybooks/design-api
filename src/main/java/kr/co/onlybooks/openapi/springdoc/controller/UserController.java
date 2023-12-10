@@ -1,6 +1,7 @@
 package kr.co.onlybooks.openapi.springdoc.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.onlybooks.openapi.springdoc.dto.UserIn;
 import kr.co.onlybooks.openapi.springdoc.dto.UserOut;
 import kr.co.onlybooks.openapi.springdoc.model.User;
@@ -19,6 +20,8 @@ public class UserController {
     private Map<String, User> db = new HashMap<>();
 
     @PostMapping
+    @Tag(name = "command")
+    @Tag(name = "user-controller")
     @Operation(summary = "새 사용자를 등록한다")
     public ResponseEntity<Void> registerUser(@RequestBody UserIn userIn) {
         String id = UUID.randomUUID().toString();
@@ -29,6 +32,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @Tag(name = "query")
+    @Tag(name = "user-controller")
     @Operation(summary = "사용자를 조회한다")
     public ResponseEntity<UserOut> findUser(@PathVariable("id") String id) {
         User user = db.get(id);
@@ -40,6 +45,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @Tag(name = "command")
+    @Tag(name = "user-controller")
     @Operation(summary = "사용자 정보를 수정한다")
     public ResponseEntity<UserOut> updateUser(@PathVariable("id") String id,
                                               @RequestBody UserIn userIn) {
@@ -54,6 +61,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @Tag(name = "command")
+    @Tag(name = "user-controller")
     @Operation(summary = "사용자를 삭제한다")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") String id) {
         User user = db.get(id);
