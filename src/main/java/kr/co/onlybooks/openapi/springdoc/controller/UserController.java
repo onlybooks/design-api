@@ -1,5 +1,6 @@
 package kr.co.onlybooks.openapi.springdoc.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import kr.co.onlybooks.openapi.springdoc.dto.UserIn;
 import kr.co.onlybooks.openapi.springdoc.dto.UserOut;
 import kr.co.onlybooks.openapi.springdoc.model.User;
@@ -18,6 +19,7 @@ public class UserController {
     private Map<String, User> db = new HashMap<>();
 
     @PostMapping
+    @Operation(summary = "새 사용자를 등록한다")
     public ResponseEntity<Void> registerUser(@RequestBody UserIn userIn) {
         String id = UUID.randomUUID().toString();
 
@@ -27,6 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "사용자를 조회한다")
     public ResponseEntity<UserOut> findUser(@PathVariable("id") String id) {
         User user = db.get(id);
         if (user == null) {
@@ -37,6 +40,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "사용자 정보를 수정한다")
     public ResponseEntity<UserOut> updateUser(@PathVariable("id") String id,
                                               @RequestBody UserIn userIn) {
         User user = db.get(id);
@@ -50,6 +54,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "사용자를 삭제한다")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") String id) {
         User user = db.get(id);
         if (user == null) {
