@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class UserController implements UserResource {
 
     private Map<String, User> db = new HashMap<>();
 
@@ -48,6 +48,7 @@ public class UserController {
     @Tag(name = "command")
     @Tag(name = "user-controller")
     @Operation(summary = "사용자 정보를 수정한다")
+    @Override
     public ResponseEntity<UserOut> updateUser(@PathVariable("id") String id,
                                               @RequestBody UserIn userIn) {
         User user = db.get(id);
